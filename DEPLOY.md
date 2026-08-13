@@ -1,6 +1,6 @@
 # Deploy y configuración por entorno
 
-Este proyecto (`src/App.jsx`) obtiene la URL del backend desde `window.APP_CONFIG.API_URL`, **no** desde `import.meta.env`. Esto permite compilar la imagen Docker **una sola vez** y reutilizarla en cualquier entorno (dev, staging, prod) cambiando solo una variable de entorno al arrancar el contenedor, sin recompilar.
+Este proyecto (`src/api.js`) obtiene la URL del backend desde `window.APP_CONFIG.API_URL`, **no** desde `import.meta.env`. Esto permite compilar la imagen Docker **una sola vez** y reutilizarla en cualquier entorno (dev, staging, prod) cambiando solo una variable de entorno al arrancar el contenedor, sin recompilar.
 
 ## Cómo funciona
 
@@ -59,7 +59,7 @@ curl http://localhost:3001/config.js
 Debe reflejar `http://otra-api:9000` sin haber reconstruido la imagen.
 
 ### 5. Revisar la app en el navegador
-Abre `http://localhost:3000`. `App.jsx` hace `fetch(`${apiUrl}/api/sucursales`)`; si el backend indicado en `VITE_API_URL` no está corriendo localmente, verás el error en la consola del navegador — eso confirma que la URL inyectada es la correcta, aunque el backend no responda.
+Abre `http://localhost:3000`. `src/api.js` hace los `fetch` a `${API_URL}/api/sucursales`, `${API_URL}/api/sipap` y `${API_URL}/favoritos`; si el backend indicado en `VITE_API_URL` no está corriendo localmente, verás el error en la consola del navegador — eso confirma que la URL inyectada es la correcta, aunque el backend no responda.
 
 ## Deploy real (ej. Docker run / orquestador)
 
